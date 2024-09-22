@@ -1,0 +1,362 @@
+
+/* General styles */
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+.menu-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.header {
+    background-color: #d35400;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 2em;
+    color: #f39c12;
+}
+
+.categories {
+    margin-bottom: 20px;
+}
+
+.category-button {
+    background-color: #e67e22;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.category-button:hover {
+    background-color: #d35400;
+}
+
+.food-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.food-item {
+    background-color: #333333;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.food-item h3 {
+    margin: 10px 0;
+}
+
+.food-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.info-icon {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+.info-icon::after {
+    content: attr(data-info);
+    display: none;
+    position: absolute;
+    background-color: #d35400;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    z-index: 1;
+    width: 70px;
+    text-align: left;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9em; /* Adjusted font size */
+}
+
+.info-icon:hover::after {
+    display: block;
+}
+
+
+
+
+.active {
+    display: block;
+}
+
+.size-buttons {
+    margin: 10px 0;
+}
+
+.size-buttons button {
+    background-color: #e67e22;
+    border: none;
+    color: white;
+    padding: 10px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.size-buttons button:hover {
+    background-color: #d35400;
+}
+
+.action-buttons {
+    margin-top: 10px;
+}
+
+.action-buttons a {
+    display: inline-block;
+    background-color: #e67e22;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-right: 5px;
+}
+
+.action-buttons a:hover {
+    background-color: #d35400;
+}
+
+/* Category-specific styles */
+.food-section.pizza,
+.food-section.appetizer,
+.food-section.main-course,
+.food-section.wings,
+.food-section.drinks {
+    display: none; /* Initially hidden */
+}
+
+.food-section.pizza .food-item,
+.food-section.appetizer .food-item,
+.food-section.main-course .food-item,
+.food-section.wings .food-item,
+.food-section.drinks .food-item {
+    width: 300px;
+}
+
+.food-item {
+    text-align: center; /* Center align content within food-item */
+}
+
+.size-buttons {
+    text-align: center; /* Center align buttons within size-buttons */
+}
+
+     .categories {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 20px; /* Adjust spacing as needed */
+        width: 100%;
+        padding: 20px;
+        box-sizing: border-box;
+    }
+
+    .category-button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: none;
+        background: none;
+        cursor: pointer;
+        padding: 15px;
+        margin: 10px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .category-button img {
+        width: 60px; /* Adjust size as needed */
+        height: 60px; /* Adjust size as needed */
+        border-radius: 50%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 10px;
+    }
+
+    .category-button span {
+        font-size: 16px;
+        font-weight: bold;
+        color: #d6cccc;
+    }
+
+    .category-button:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .submenu {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .submenu .category-button {
+        display: flex;
+        align-items: center;
+        margin-top: 5px;
+    }
+ 
+
+
+
+/* Specific to drinks section */
+.food-section.fresh-tea .add-ons-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Specific to drinks section */
+.food-section.fruit-tea-konjac .add-ons-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Specific to drinks section */
+.food-section.flavored-juices .add-ons-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Specific to drinks section */
+.food-section.fruit-shakes .add-ons-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Specific to drinks section */
+.food-section.milktea-pearl .add-ons-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* Specific to drinks section */
+.food-section.house-specials .add-ons-buttons {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+
+
+
+.food-section.fresh-tea .add-ons-buttons button {
+    margin: 5px;
+}
+
+
+.addon-popup-image {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    animation: fadeOut 3s ease forwards;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+        display: none;
+    }
+}
+
+/* CSS for selected add-on buttons */
+.add-ons-buttons button.selected {
+    background-color: #9ed20f; /* Example color for selected buttons */
+    color: #ffffff; /* Example color for text on selected buttons */
+}
+
+.add-ons-buttons {
+    margin-top: 10px; /* Adjust as needed */
+    display: flex;
+    flex-wrap: wrap; /* Allow buttons to wrap to next line if necessary */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+.add-ons-buttons button {
+    margin-right: 10px; /* Space between buttons */
+    margin-bottom: 10px; /* Space below buttons */
+    padding: 8px 16px; /* Padding inside buttons */
+    background-color: #d35400; /* Green background */
+    color: white; /* White text */
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease; /* Smooth background color transition */
+}
+
+.add-ons-buttons button:hover {
+    background-color: #45a049; /* Darker green on hover */
+}
+
+.add-ons-buttons button.selected:disabled {
+    background-color: #f44336; /* Red background for selected and disabled buttons */
+    cursor: not-allowed; /* Change cursor to indicate disabled state */
+    opacity: 0.7; /* Reduce opacity for disabled buttons */
+}
+
+/* Optional: Adjust button sizes and styles based on your design */
+
+.selected {
+    background-color: #ccc; /* Example color change */
+}
+
+.selected-addons {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centers the items horizontally */
+}
+
+.selected-addon-item {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* Centers the content horizontally within the item */
+    margin-bottom: 5px;
+}
+
+.remove-addon-button {
+    margin-left: 10px;
+    padding: 2px 8px;
+    background-color: #ff6347;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.remove-addon-button:hover {
+    background-color: #ff3b20;
+}

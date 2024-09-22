@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Butter Garlic Shrimp</title>
+    <style>
+       /* CSS styles */
+        * {
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+    max-width: 500px;
+    margin: 0 auto;
+    background-image: url('pizzabg1.jpg'); /* Replace 'pizzabg1.jpg' with your background image path */
+    background-repeat: repeat;
+    padding: 20px;
+    color: #333;
+        }
+
+        h1, h2 {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .flex-row {
+            display: flex;
+        }
+
+        .flex-wrap {
+            flex-wrap: wrap;
+        }
+
+        .flex-justify-content-center {
+            justify-content: center;
+        }
+
+        .col {
+            padding: 10px;
+        }
+
+        .padding {
+            padding: 10px;
+        }
+
+        .text-align-center {
+            text-align: center;
+        }
+
+        .full-width {
+            width: 100%;
+        }
+
+        .pizza {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .pizza .overlay {
+            position: absolute;
+        }
+
+        .pizza .layer3 {
+            z-index: 3; /* Pepperoni topping */
+        }
+
+        .pizza .layer4 {
+            z-index: 4; /* Pineapple topping */
+        }
+
+        
+
+        .pizza .layer5 {
+            z-index: 5; /* Bacon topping */
+        }
+
+       
+        .pizza .layer6 {
+            z-index: 6; /* Mushroom topping */
+        }
+
+        .pizza .layer7 {
+            z-index: 7; /* Ham topping */
+        }
+
+        .pizza .layer8 {
+            z-index: 8; /* Beef topping */
+        }
+      
+         .pizza .layer9 {
+            z-index: 9; /* Dried Basil */
+        }
+        
+        .pizza .layer10 {
+            z-index: 10; /* Olives */
+        }
+
+        .pizza .layer11 {
+            z-index: 11; /* Onions */
+        }
+
+        .pizza .layer12 {
+            z-index: 12; /* Green Bell Pepper */
+        }
+
+        .pizza .layer13 {
+            z-index: 13; /* Red Bell Pepper */
+        }
+  
+        .pizza .layer14 {
+            z-index: 14; /* Shawarma Meat */
+        }
+
+         .pizza .layer15 {
+            z-index: 15; /* Cucumber */
+        }
+
+         .pizza .layer16 {
+            z-index: 16; /* Tomato */
+        }
+
+         .pizza .layer17 {
+            z-index: 17; /* Shrimp */
+        }
+
+
+        .hide {
+            display: none;
+        }
+
+        .checkbox-container {
+            display: block;
+            position: relative;
+            margin-bottom: 12px;
+            cursor: pointer;
+            user-select: none;
+        }
+
+        .checkbox-container input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+            height: 0;
+            width: 0;
+        }
+
+        .checkbox-container .checkmark {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            height: 25px;
+            width: 25px;
+            background-color: yellow;
+            border-radius: 100%;
+        }
+
+        .checkbox-container:hover input ~ .checkmark {
+            background-color: #ccc;
+        }
+
+        .checkbox-container input:checked ~ .checkmark {
+            background-color: #e34520;
+        }
+
+        .checkbox-container .checkmark:after {
+            content: "";
+            position: absolute;
+            display: none;
+        }
+
+        .checkbox-container input:checked ~ .checkmark:after {
+            display: block;
+        }
+
+        .checkbox-container .checkmark:after {
+            left: 9px;
+            top: 5px;
+            width: 5px;
+            height: 10px;
+            border: solid white;
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+        }
+
+        .checkbox-container .label {
+            margin-left: 40px;
+        }
+
+        .checkbox-container img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            margin-left: 30px;
+            border: 2px solid #e34520;
+            background-color: white;
+        }
+
+        .button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            background-color: #e34520;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .button:hover {
+            background-color: #c0392b;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+            z-index: 10;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .popup .close {
+            cursor: pointer;
+            background-color: #e34520;
+            color: white;
+            border: none;
+            padding: 10px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+
+        .back-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            margin-top: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #2980b9;
+        }
+
+        .dropdown-container {
+            margin-top: 10px;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 10px;
+            border-radius: 5px;
+            text-align: center;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .dropdown-container select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .topping-label {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 5px;
+            border-radius: 5px;
+            margin-bottom: 5px;
+            text-align: center;
+        }
+
+        .pizza-size {
+            margin-top: 20px;
+        }
+
+        /* New styles for radio buttons */
+        .radio-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .radio-container input {
+            display: none;
+        }
+
+        .radio-container label {
+            padding: 5px 10px;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #ccc;
+            cursor: pointer;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .radio-container input:checked + label {
+            background-color: #e34520;
+            color: white;
+            border-color: #e34520;
+        }
+
+        .radio-container label:hover {
+            background-color: #f39c12;
+            color: white;
+            border-color: #f39c12;
+        }
+
+ /* Container styles */
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px;
+    background-color: #ffa200;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.error-message {
+    display: none;
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 10px;
+    background-color: #f44336;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+<h1 class="text-align-center">Butter Garlic Shrimp</h1>
+
+<div class="pizza-size">
+    <h2 class="text-align-center">Select Pizza Size</h2>
+    <div class="dropdown-container">
+        <select id="pizzaSize">
+            <option value="12" data-price="389">12" - 389 pesos</option>
+            <option value="14" data-price="489">14" - 489 pesos</option>
+            <option value="18" data-price="779">18" - 779 pesos</option>
+        </select>
+    </div>
+</div>
+
+<div class="text-align-center">
+    <h2>Total Amount: <span id="totalAmount">349</span> pesos</h2>
+</div>
+
+<div class="pizza">
+    <div class="col overlay layer3 hide"><img src="pepperoni/19.png" class="full-width"></div>
+    <div class="col overlay layer4 hide"><img src="pineapple/13.png" class="full-width"></div>
+    <div class="col overlay layer5 hide"><img src="bacon/19.png" class="full-width"></div>
+    <div class="col overlay layer6 hide"><img src="mushroom/14.png" class="full-width"></div>
+    <div class="col overlay layer7 hide"><img src="Ham/2.png" class="full-width"></div> 
+    <div class="col overlay layer8 hide"><img src="Beef/2.png" class="full-width"></div> 
+    <div class="col overlay layer9 hide"><img src="Dried Basil/2.png" class="full-width"></div> 
+    <div class="col overlay layer10 hide"><img src="Olives/2.png" class="full-width"></div> 
+    <div class="col overlay layer11 hide"><img src="Onions/2.png" class="full-width"></div> 
+    <div class="col overlay layer12 hide"><img src="Green Bell Pepper/2.png" class="full-width"></div> 
+    <div class="col overlay layer13 hide"><img src="Red Bell Pepper/2.png" class="full-width"></div>
+    <div class="col overlay layer14 hide"><img src="Shawarma Meat/2.png" class="full-width"></div>
+    <div class="col overlay layer15 hide"><img src="Cucumber/2.png" class="full-width"></div>
+    <div class="col overlay layer16 hide"><img src="Tomato/2.png" class="full-width"></div>
+    <div class="col overlay layer17 hide"><img src="Shrimp/2.png" class="full-width"></div>      
+    <div class="col"><img src="Butter Shrimp Customize .png" class="full-width"></div>
+</div>
+
+
+
+
+<div class="row">
+    <div class="col layer6-toppings hide">
+        <div class="topping-label">Mushroom</div>
+        <div class="radio-container">
+            <input type="radio" name="layer6-position" value="left" id="layer6-left">
+            <label for="layer6-left">Left</label>
+            <input type="radio" name="layer6-position" value="middle" id="layer6-middle" checked>
+            <label for="layer6-middle">Middle</label>
+            <input type="radio" name="layer6-position" value="right" id="layer6-right">
+            <label for="layer6-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer5-toppings hide">
+        <div class="topping-label">Bacon</div>
+        <div class="radio-container">
+            <input type="radio" name="layer5-position" value="left" id="layer5-left">
+            <label for="layer5-left">Left</label>
+            <input type="radio" name="layer5-position" value="middle" id="layer5-middle" checked>
+            <label for="layer5-middle">Middle</label>
+            <input type="radio" name="layer5-position" value="right" id="layer5-right">
+            <label for="layer5-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer4-toppings hide">
+        <div class="topping-label">Pineapple</div>
+        <div class="radio-container">
+            <input type="radio" name="layer4-position" value="left" id="layer4-left">
+            <label for="layer4-left">Left</label>
+            <input type="radio" name="layer4-position" value="middle" id="layer4-middle" checked>
+            <label for="layer4-middle">Middle</label>
+            <input type="radio" name="layer4-position" value="right" id="layer4-right">
+            <label for="layer4-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer3-toppings hide">
+        <div class="topping-label">Pepperoni</div>
+        <div class="radio-container">
+            <input type="radio" name="layer3-position" value="left" id="layer3-left">
+            <label for="layer3-left">Left</label>
+            <input type="radio" name="layer3-position" value="middle" id="layer3-middle" checked>
+            <label for="layer3-middle">Middle</label>
+            <input type="radio" name="layer3-position" value="right" id="layer3-right">
+            <label for="layer3-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer7-toppings hide">
+        <div class="topping-label">Ham</div>
+        <div class="radio-container">
+            <input type="radio" name="layer7-position" value="left" id="layer7-left">
+            <label for="layer7-left">Left</label>
+            <input type="radio" name="layer7-position" value="middle" id="layer7-middle" checked>
+            <label for="layer7-middle">Middle</label>
+            <input type="radio" name="layer7-position" value="right" id="layer7-right">
+            <label for="layer7-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer8-toppings hide">
+        <div class="topping-label">Beef</div>
+        <div class="radio-container">
+            <input type="radio" name="layer8-position" value="left" id="layer8-left">
+            <label for="layer8-left">Left</label>
+            <input type="radio" name="layer8-position" value="middle" id="layer8-middle" checked>
+            <label for="layer8-middle">Middle</label>
+            <input type="radio" name="layer8-position" value="right" id="layer8-right">
+            <label for="layer8-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer9-toppings hide">
+        <div class="topping-label">Dried Basil</div>
+        <div class="radio-container">
+            <input type="radio" name="layer9-position" value="left" id="layer9-left">
+            <label for="layer9-left">Left</label>
+            <input type="radio" name="layer9-position" value="middle" id="layer9-middle" checked>
+            <label for="layer9-middle">Middle</label>
+            <input type="radio" name="layer9-position" value="right" id="layer9-right">
+            <label for="layer9-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer10-toppings hide">
+        <div class="topping-label">Olives</div>
+        <div class="radio-container">
+            <input type="radio" name="layer10-position" value="left" id="layer10-left">
+            <label for="layer10-left">Left</label>
+            <input type="radio" name="layer10-position" value="middle" id="layer10-middle" checked>
+            <label for="layer10-middle">Middle</label>
+            <input type="radio" name="layer10-position" value="right" id="layer10-right">
+            <label for="layer10-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer11-toppings hide">
+        <div class="topping-label">Onions</div>
+        <div class="radio-container">
+            <input type="radio" name="layer11-position" value="left" id="layer11-left">
+            <label for="layer11-left">Left</label>
+            <input type="radio" name="layer11-position" value="middle" id="layer11-middle" checked>
+            <label for="layer11-middle">Middle</label>
+            <input type="radio" name="layer11-position" value="right" id="layer11-right">
+            <label for="layer11-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer12-toppings hide">
+        <div class="topping-label">Green Bell Pepper</div>
+        <div class="radio-container">
+            <input type="radio" name="layer12-position" value="left" id="layer12-left">
+            <label for="layer12-left">Left</label>
+            <input type="radio" name="layer12-position" value="middle" id="layer12-middle" checked>
+            <label for="layer12-middle">Middle</label>
+            <input type="radio" name="layer12-position" value="right" id="layer12-right">
+            <label for="layer12-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer13-toppings hide">
+        <div class="topping-label">Red Bell Pepper</div>
+        <div class="radio-container">
+            <input type="radio" name="layer13-position" value="left" id="layer13-left">
+            <label for="layer13-left">Left</label>
+            <input type="radio" name="layer13-position" value="middle" id="layer13-middle" checked>
+            <label for="layer13-middle">Middle</label>
+            <input type="radio" name="layer13-position" value="right" id="layer13-right">
+            <label for="layer13-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer14-toppings hide">
+        <div class="topping-label">Shawarma Meat</div>
+        <div class="radio-container">
+            <input type="radio" name="layer14-position" value="left" id="layer14-left">
+            <label for="layer14-left">Left</label>
+            <input type="radio" name="layer14-position" value="middle" id="layer14-middle" checked>
+            <label for="layer14-middle">Middle</label>
+            <input type="radio" name="layer14-position" value="right" id="layer14-right">
+            <label for="layer14-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer15-toppings hide">
+        <div class="topping-label">Cucumber</div>
+        <div class="radio-container">
+            <input type="radio" name="layer15-position" value="left" id="layer15-left">
+            <label for="layer15-left">Left</label>
+            <input type="radio" name="layer15-position" value="middle" id="layer15-middle" checked>
+            <label for="layer15-middle">Middle</label>
+            <input type="radio" name="layer15-position" value="right" id="layer15-right">
+            <label for="layer15-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer16-toppings hide">
+        <div class="topping-label">Tomato</div>
+        <div class="radio-container">
+            <input type="radio" name="layer16-position" value="left" id="layer16-left">
+            <label for="layer16-left">Left</label>
+            <input type="radio" name="layer16-position" value="middle" id="layer16-middle" checked>
+            <label for="layer16-middle">Middle</label>
+            <input type="radio" name="layer16-position" value="right" id="layer16-right">
+            <label for="layer16-right">Right</label>
+        </div>
+    </div>
+    <div class="col layer17-toppings hide">
+        <div class="topping-label">Shrimp</div>
+        <div class="radio-container">
+            <input type="radio" name="layer17-position" value="left" id="layer17-left">
+            <label for="layer17-left">Left</label>
+            <input type="radio" name="layer17-position" value="middle" id="layer17-middle" checked>
+            <label for="layer17-middle">Middle</label>
+            <input type="radio" name="layer17-position" value="right" id="layer17-right">
+            <label for="layer17-right">Right</label>
+        </div>
+    </div>
+</div>
+
+<div id="errorMessage" class="error-message"></div>
+<h2 class="text-align-center">Toppings</h2>
+
+<div class="row flex-row flex-wrap flex-justify-content-center">
+    <div class="col">
+        <label class="checkbox-container" for="layer3">
+            <input type="checkbox" class="checkbox" value="layer3" id="layer3">
+            <img src="pepperoni/19.png">
+            <span class="checkmark"></span>
+            <div class="label">Pepperoni</div>
+        </label>
+    </div>
+    <div class="col">
+        <label class="checkbox-container" for="layer4">
+            <input type="checkbox" class="checkbox" value="layer4" id="layer4">
+            <img src="pineapple/13.png">
+            <span class="checkmark"></span>
+            <div class="label">Pineapple</div>
+        </label>
+    </div>
+    <div class="col">
+        <label class="checkbox-container" for="layer5">
+            <input type="checkbox" class="checkbox" value="layer5" id="layer5">
+            <img src="bacon/19.png">
+            <span class="checkmark"></span>
+            <div class="label">Bacon</div>
+        </label>
+    </div>
+    <div class="col">
+        <label class="checkbox-container" for="layer6">
+            <input type="checkbox" class="checkbox" value="layer6" id="layer6">
+            <img src="mushroom/14.png">
+            <span class="checkmark"></span>
+            <div class="label">Mushroom</div>
+        </label>
+    </div>
+    <div class="col">
+        <label class="checkbox-container" for="layer7">
+            <input type="checkbox" class="checkbox" value="layer7" id="layer7">
+            <img src="Ham/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Ham</div>
+        </label>
+    </div>
+    <div class="col">
+        <label class="checkbox-container" for="layer8">
+            <input type="checkbox" class="checkbox" value="layer8" id="layer8">
+            <img src="Beef/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Beef</div>
+        </label>
+    </div>
+     <div class="col">
+        <label class="checkbox-container" for="layer9">
+            <input type="checkbox" class="checkbox" value="layer9" id="layer9">
+            <img src="Dried Basil/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Dried Basil</div>
+        </label>
+    </div>
+ <div class="col">
+        <label class="checkbox-container" for="layer10">
+            <input type="checkbox" class="checkbox" value="layer10" id="layer10">
+            <img src="Olives/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Olives</div>
+        </label>
+    </div>
+  <div class="col">
+        <label class="checkbox-container" for="layer11">
+            <input type="checkbox" class="checkbox" value="layer11" id="layer11">
+            <img src="Onions/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Onion</div>
+        </label>
+    </div>
+ <div class="col">
+        <label class="checkbox-container" for="layer12">
+            <input type="checkbox" class="checkbox" value="layer12" id="layer12">
+            <img src="Green Bell Pepper/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Green BP</div>
+        </label>
+    </div>
+ <div class="col">
+        <label class="checkbox-container" for="layer13">
+            <input type="checkbox" class="checkbox" value="layer13" id="layer13">
+            <img src="Red Bell Pepper/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Red BP</div>
+        </label>
+    </div>
+ <div class="col">
+        <label class="checkbox-container" for="layer14">
+            <input type="checkbox" class="checkbox" value="layer14" id="layer14">
+            <img src="Shawarma Meat/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Shawarma Meat</div>
+        </label>
+    </div>
+ <div class="col">
+        <label class="checkbox-container" for="layer15">
+            <input type="checkbox" class="checkbox" value="layer15" id="layer15">
+            <img src="Cucumber/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Cucumber</div>
+        </label>
+    </div>
+ <div class="col">
+        <label class="checkbox-container" for="layer16">
+            <input type="checkbox" class="checkbox" value="layer16" id="layer16">
+            <img src="Tomato/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Tomato</div>
+        </label>
+    </div>
+ <div class="col">
+        <label class="checkbox-container" for="layer17">
+            <input type="checkbox" class="checkbox" value="layer17" id="layer17">
+            <img src="Shrimp/2.png">
+            <span class="checkmark"></span>
+            <div class="label">Shrimp</div>
+        </label>
+    </div>
+</div>
+
+
+<button class="button" id="checkoutButton">Place Order</button>
+
+<a href="try.html">
+    <button class="back-button" id="backButton">Back to Menu</button>
+</a>
+
+<div class="popup" id="popup">
+    <h2>Pizza Receipt</h2>
+    <p id="summaryText"></p>
+    <ul id="selectedToppingsList"></ul>
+    <button class="order" onclick="orderPizza()" style="background-color: #4CAF50; /* Green */
+                                                  border: none;
+                                                  color: white;
+                                                  padding: 10px 32px;
+                                                  text-align: center;
+                                                  text-decoration: none;
+                                                  display: inline-block;
+                                                  font-size: 16px;
+                                                  margin: 4px 2px;
+                                                  cursor: pointer;
+                                                  border-radius: 8px;">Order</button>
+    <button class="close" onclick="closePopup()">Close</button>
+    
+</div>
+
+
+<script>
+// Global variables
+let toppingCost = 20; // Cost per additional topping
+let basePrice = 389; // Base price for pizza
+let totalAmount = basePrice; // Total amount initially set to base price
+
+// Function to update total amount based on pizza size and toppings selected
+function updateTotalAmount() {
+    let selectedSize = document.getElementById('pizzaSize').value;
+    switch (selectedSize) {
+        case '12':
+            basePrice = 389;
+            break;
+        case '14':
+            basePrice = 489;
+            break;
+        case '18':
+            basePrice = 779;
+            break;
+    }
+
+    // Calculate total amount based on base price and number of selected toppings
+    let toppingCount = document.querySelectorAll(".checkbox:checked").length;
+    totalAmount = basePrice + (toppingCount * toppingCost);
+    document.getElementById("totalAmount").innerText = totalAmount;
+}
+
+// Function to handle checkbox change (topping selection)
+document.querySelectorAll(".checkbox").forEach((checkbox) => {
+    checkbox.addEventListener("change", function () {
+        let checkedCount = document.querySelectorAll(".checkbox:checked").length;
+
+        // Check if more than 5 toppings are selected
+        if (checkedCount > 5) {
+            this.checked = false; // Uncheck the checkbox
+            displayErrorMessage("You can select up to 5 toppings.");
+        } else {
+            // Show or hide topping layer based on checkbox state
+            let layerClass = "." + this.value;
+            let elementPizza = document.querySelector(".pizza " + layerClass);
+            if (this.checked) {
+                elementPizza.classList.remove("hide");
+                document.querySelector("." + this.value + "-toppings").classList.remove("hide");
+            } else {
+                elementPizza.classList.add("hide");
+                document.querySelector("." + this.value + "-toppings").classList.add("hide");
+            }
+            updateTotalAmount(); // Update total amount
+            updateSelectedToppingsList(); // Update selected toppings list
+        }
+    });
+});
+
+// Function to display error message
+function displayErrorMessage(message) {
+    let errorMessageElement = document.getElementById("errorMessage");
+    errorMessageElement.innerText = message;
+    errorMessageElement.style.display = "block";
+    setTimeout(() => {
+        errorMessageElement.style.display = "none";
+    }, 3000); // Hide after 3 seconds
+}
+
+// Function to update selected toppings list in the receipt
+function updateSelectedToppingsList() {
+    let selectedToppingsList = document.getElementById("selectedToppingsList");
+    selectedToppingsList.innerHTML = ""; // Clear previous list
+
+    // Iterate over checked checkboxes to add selected toppings to the list
+    document.querySelectorAll(".checkbox:checked").forEach((checkbox) => {
+        let toppingLabel = checkbox.parentElement.querySelector(".label").innerText.trim(); // Retrieve topping label correctly
+        let listItem = document.createElement("li");
+        listItem.innerText = `${toppingLabel} (+20)`; // Display topping name with cost
+        selectedToppingsList.appendChild(listItem);
+    });
+}
+
+// Function to handle pizza size change
+document.getElementById('pizzaSize').addEventListener('change', updateTotalAmount);
+
+// Function to handle position change for toppings
+document.querySelectorAll('.radio-container input[type="radio"]').forEach((radio) => {
+    radio.addEventListener('change', function () {
+        let layer = this.name.split('-')[0];
+        let position = this.value;
+
+        let elementPizza = document.querySelector(".pizza ." + layer);
+        let img = elementPizza.querySelector("img");
+
+        switch (position) {
+            case 'left':
+                img.style.clipPath = "polygon(0 0, 50% 0, 50% 100%, 0 100%)";
+                break;
+            case 'middle':
+                img.style.clipPath = "polygon(0 0, 100% 0, 100% 100%, 0 100%)";
+                break;
+            case 'right':
+                img.style.clipPath = "polygon(50% 0, 100% 0, 100% 100%, 50% 100%)";
+                break;
+        }
+    });
+});
+
+// Function to handle checkout button click
+document.getElementById("checkoutButton").onclick = function () {
+    let selectedToppings = [];
+    document.querySelectorAll(".checkbox").forEach((currentValue, index, arr) => {
+        if (arr[index].checked) {
+            selectedToppings.push(arr[index].parentElement.querySelector(".label").innerText);
+        }
+    });
+
+     let selectedSize = document.getElementById('pizzaSize').value;
+    let pizzaName = `Butter Garlic Shrimp (${selectedSize} inches)`;
+    totalAmount = basePrice + (selectedToppings.length * toppingCost);
+
+     let summaryText = `Pizza Name: ${pizzaName}<br><br>Toppings: ${selectedToppings.join(", ")}<br><br>Total Amount: ₱${totalAmount}`;
+    document.getElementById("summaryText").innerHTML = summaryText; // Use innerHTML to allow <br> tags
+    updateSelectedToppingsList();
+    document.getElementById("popup").style.display = "block";
+};
+
+// Function to close popup
+function closePopup() {
+    document.getElementById("popup").style.display = "none";
+}
+
+// Initial setup: Update total amount on page load
+updateTotalAmount();
+
+
+</script>
+
+</body>
+</html>

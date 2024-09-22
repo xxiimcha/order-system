@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Borcelle Restaurant Pizza Menu</title>
+    <link rel="stylesheet" href="styles.css">
+    <script defer src="script.js"></script>
+</head>
+<body>
+    <div class="menu-container">
+        <div class="header">
+            <h1>Borcelle Restaurant</h1>
+            <h2>Pizza Menu</h2>
+        </div>
+        <div class="pizza-section">
+            <!-- Aloha Hawaiian -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="aloha-image" src="12.png" alt="Aloha Hawaiian">
+                </div>
+                <h3>Aloha Hawaiian</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('aloha', 12)">12"</button>
+                    <button onclick="updateMenuItem('aloha', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('aloha', 18)">18"</button>
+                </div>
+                <p>Price: <span id="aloha-price">$349</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- B&M Bacon and Mushroom -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="bm-image" src="m12.png" alt="B&M Bacon and Mushroom">
+                </div>
+                <h3>B&M Bacon and Mushroom</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('bm', 12)">12"</button>
+                    <button onclick="updateMenuItem('bm', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('bm', 18)">18"</button>
+                </div>
+                <p>Price: <span id="bm-price">$349</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- Savory Pepperoni -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="savory-image" src="p12.png" alt="Savory Pepperoni">
+                </div>
+                <h3>Savory Pepperoni</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('savory', 12)">12"</button>
+                    <button onclick="updateMenuItem('savory', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('savory', 18)">18"</button>
+                </div>
+                <p>Price: <span id="savory-price">$349</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- Meaty Mighty -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="meaty-image" src="mm12.png" alt="Meaty Mighty">
+                </div>
+                <h3>Meaty Mighty</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('meaty', 12)">12"</button>
+                    <button onclick="updateMenuItem('meaty', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('meaty', 18)">18"</button>
+                </div>
+                <p>Price: <span id="meaty-price">$379</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- Quad Cheese -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="quad-image" src="q12.png" alt="Quad Cheese">
+                </div>
+                <h3>Quad Cheese</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('quad', 12)">12"</button>
+                    <button onclick="updateMenuItem('quad', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('quad', 18)">18"</button>
+                </div>
+                <p>Price: <span id="quad-price">$379</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- Cheesy Spinach -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="cheesy-image" src="cs12.png" alt="Cheesy Spinach">
+                </div>
+                <h3>Cheesy Spinach</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('cheesy', 12)">12"</button>
+                    <button onclick="updateMenuItem('cheesy', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('cheesy', 18)">18"</button>
+                </div>
+                <p>Price: <span id="cheesy-price">$389</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- La Suprema -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="suprema-image" src="ls12.png" alt="La Suprema">
+                </div>
+                <h3>La Suprema</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('suprema', 12)">12"</button>
+                    <button onclick="updateMenuItem('suprema', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('suprema', 18)">18"</button>
+                </div>
+                <p>Price: <span id="suprema-price">$389</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- Marhaba Shawarma -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="shawarma-image" src="ms12.png" alt="Marhaba Shawarma">
+                </div>
+                <h3>Marhaba Shawarma</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('shawarma', 12)">12"</button>
+                    <button onclick="updateMenuItem('shawarma', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('shawarma', 18)">18"</button>
+                </div>
+                <p>Price: <span id="shawarma-price">$389</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- Spicy Buffalo Chicken -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="buffalo-image" src="sb12.png" alt="Spicy Buffalo Chicken">
+                </div>
+                <h3>Spicy Buffalo Chicken</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('buffalo', 12)">12"</button>
+                    <button onclick="updateMenuItem('buffalo', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('buffalo', 18)">18"</button>
+                </div>
+                <p>Price: <span id="buffalo-price">$389</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+            <!-- Butter Garlic Shrimp -->
+            <div class="pizza-item">
+                <div class="image-container">
+                    <img id="shrimp-image" src="bg12.png" alt="Butter Garlic Shrimp">
+                </div>
+                <h3>Butter Garlic Shrimp</h3>
+                <div class="size-buttons">
+                    <button onclick="updateMenuItem('shrimp', 12)">12"</button>
+                    <button onclick="updateMenuItem('shrimp', 14)">14"</button>
+                    <br><br>
+                    <button onclick="updateMenuItem('shrimp', 18)">18"</button>
+                </div>
+                <p>Price: <span id="shrimp-price">$389</span></p>
+                <div class="action-buttons">
+                    <a href="#" class="order-button">Order Now</a>
+                    <a href="#" class="cart-button">Add to Cart</a>
+                    <a href="#" class="customize-button">Customize</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background-color: #2c2c2c;
+    color: #ffffff;
+}
+
+.menu-container {
+    text-align: center;
+    padding: 20px;
+}
+
+.header {
+    background-color: #d35400;
+    padding: 20px 0;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.header h2 {
+    margin: 0;
+    font-size: 2em;
+    color: #f39c12;
+}
+
+.pizza-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pizza-item {
+    background-color: #333333;
+    border-radius: 10px;
+    margin: 10px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.pizza-item h3 {
+    margin: 10px 0;
+}
+
+.pizza-item img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.size-buttons {
+    margin: 10px 0;
+}
+
+.size-buttons button {
+    background-color: #e67e22;
+    border: none;
+    color: white;
+    padding: 10px;
+    margin: 0 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.size-buttons button:hover {
+    background-color: #d35400;
+}
+
+.order-button, .cart-button, .customize-button {
+    display: inline-block;
+    background-color: #e67e22;
+    color: #ffffff;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 10px;
+    margin-right: 5px;
+}
+
+.order-button:hover, .cart-button:hover, .customize-button:hover {
+    background-color: #d35400;
+}
+</style>
+
+<script>
+function updateMenuItem(pizza, size) {
+    const prices = {
+        12: {
+            aloha: 349, bm: 349, savory: 349, meaty: 379, quad: 379,
+            cheesy: 389, suprema: 389, shawarma: 389, buffalo: 389, shrimp: 389
+        },
+        14: {
+            aloha: 449, bm: 449, savory: 449, meaty: 479, quad: 479,
+            cheesy: 489, suprema: 489, shawarma: 489, buffalo: 489, shrimp: 489
+        },
+        18: {
+            aloha: 659, bm: 659, savory: 659, meaty: 729, quad: 729,
+            cheesy: 779, suprema: 779, shawarma: 779, buffalo: 779, shrimp: 779
+        }
+    };
+
+    const images = {
+        aloha: {
+            12: '12.png',
+            14: '14.png',
+            18: '18.png'
+        },
+        bm: {
+            12: 'm12.png',
+            14: 'm14.png',
+            18: 'm18.png',
+        },
+        savory: {
+            12: 'p12.png',
+            14: 'p14.png',
+            18: 'p18.png',
+        },
+        meaty: {
+            12: 'mm12.png',
+            14: 'mm14.png',
+            18: 'mm18.png',
+        },
+        quad: {
+            12: 'q12.png',
+            14: 'q14.png',
+            18: 'q18.png',
+        },
+        cheesy: {
+            12: 'cs12.png',
+            14: 'cs14.png',
+            18: 'cs18.png',
+        },
+        suprema: {
+            12: 'ls12.png',
+            14: 'ls14.png',
+            18: 'ls18.png',
+        },
+        shawarma: {
+            12: 'ms12.png',
+            14: 'ms14.png',
+            18: 'ms18.png',
+        },
+        buffalo: {
+            12: 'sb12.png',
+            14: 'sb14.png',
+            18: 'sb18.png',
+        },
+        shrimp: {
+            12: 'bg12.png',
+            14: 'bg14.png',
+            18: 'bg18.png',
+        }
+    };
+
+    const priceElement = document.getElementById(`${pizza}-price`);
+    priceElement.textContent = `$${prices[size][pizza]}`;
+
+    const imageElement = document.getElementById(`${pizza}-image`);
+    imageElement.src = images[pizza][size];
+}
+</script>
+</body>
+</html>
