@@ -56,7 +56,7 @@ function getMessages($conn) {
     $sql = "SELECT sender, message, timestamp 
             FROM chat_messages 
             WHERE user_id = '$userId' AND order_number = '$orderNumber' 
-            ORDER BY timestamp ASC";
+            ORDER BY timestamp DESC";
 
     $result = $conn->query($sql);
 

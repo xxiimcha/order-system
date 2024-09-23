@@ -5,6 +5,8 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
 ?>
 
 <?php include('../include/nav.php'); ?>
+
+<link rel="stylesheet" href="css/order.css">
 <body>
 
 <div class="container mt-5">
@@ -18,6 +20,7 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
                     <th>Items</th>
                     <th>Total Amount</th>
                     <th>Status</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody id="order-list">
@@ -26,6 +29,43 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
         </table>
     </div>
 </div>
+
+<!-- Modal for messaging -->
+<div class="modal fade" id="messageModal" tabindex="-1" aria-labelledby="messageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="messageModalLabel" style="color: black;">Messages for Order: <span id="modal-order-number"></span></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <!-- Messages List Container -->
+                <div id="message-list" class="message-list mb-3" style="max-height: 300px; overflow-y: auto;">
+                    <!-- Messages will be dynamically inserted here -->
+                </div>
+                
+                <!-- Message Input Form -->
+                <form id="message-form" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="message">New Message</label>
+                        <textarea class="form-control" id="message" rows="3" placeholder="Type your message here..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Attach Image</label>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input" id="image" accept="image/*">
+                            <label class="custom-file-label" for="image">Choose file</label>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <?php include('../include/foot.php'); ?>
 
@@ -64,6 +104,9 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
                         <td data-label="Items">${order.item_name ? order.item_name : 'N/A'}</td>
                         <td data-label="Total Amount">₱${order.total_amount ? order.total_amount : '0.00'}</td>
                         <td data-label="Status">${order.order_status ? order.order_status : 'Pending'}</td>
+                        <td data-label="Action">
+                            <button class="btn btn-info btn-sm" onclick="openMessageModal('${order.order_number}')">Messages</button>
+                        </td>
                     </tr>
                 `;
                 orderList.append(orderItem);
@@ -73,109 +116,86 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
         }
     }
 
-    // Function to set CSS class based on order status
-    function getStatusClass(status) {
-        switch (status.toLowerCase()) {
-            case 'pending':
-                return 'text-warning font-weight-bold';
-            case 'completed':
-                return 'text-success font-weight-bold';
-            case 'canceled':
-                return 'text-danger font-weight-bold';
-            case 'in progress':
-                return 'text-info font-weight-bold';
-            default:
-                return '';
+    // Function to open the message modal for a specific order
+    function openMessageModal(orderNumber) {
+        $('#modal-order-number').text(orderNumber);
+        $('#messageModal').modal('show');
+        fetchMessages(orderNumber);
+    }
+
+    // Fetch messages for a specific order
+    function fetchMessages(orderNumber) {
+        $.ajax({
+            url: '../controller/messages.php?action=fetchMessages',
+            method: 'GET',
+            data: { order_number: orderNumber },
+            success: function(response) {
+                const result = JSON.parse(response);
+                if (result.status === 'success') {
+                    renderMessages(result.messages);
+                } else {
+                    console.error(result.message);
+                }
+            },
+            error: function(error) {
+                console.error('Error fetching messages:', error);
+            }
+        });
+    }
+
+    // Function to render messages
+    function renderMessages(messages) {
+        const messageList = $('#message-list');
+        messageList.empty();
+
+        if (Array.isArray(messages)) {
+            messages.forEach(message => {
+                const bubbleClass = message.sender === 'User' ? 'customer' : 'admin'; // Check if sender is 'User' or 'Admin'
+                const messageItem = `
+                    <div class="chat-bubble ${bubbleClass}">
+                        <p>${message.text}</p>
+                        <div class="timestamp">${message.timestamp}</div>
+                    </div>
+                `;
+                messageList.append(messageItem);
+            });
+            // Scroll to the bottom of the chat
+            messageList.scrollTop(messageList.prop("scrollHeight"));
         }
     }
+
+
+    // Handling form submission
+    $('#message-form').on('submit', function (e) {
+        e.preventDefault();
+        const message = $('#message').val();
+        const image = $('#image')[0].files[0];
+        const orderNumber = $('#modal-order-number').text();
+        const formData = new FormData();
+        formData.append('order_number', orderNumber);
+        formData.append('message', message);
+        if (image) {
+            formData.append('image', image);
+        }
+
+        if (message.trim()) {
+            sendMessage(formData);
+            $('#message').val('');
+            $('#image').val('');
+        }
+    });
+
+
+    // Display selected file name
+    $('.custom-file-input').on('change', function() {
+        var fileName = $(this).val().split('\\').pop();
+        $(this).siblings('.custom-file-label').addClass('selected').html(fileName);
+    });
 
     // Initial rendering of orders
     $(document).ready(function() {
         fetchOrders();
     });
 </script>
-
-<style>
-h2 {
-    color: #343a40;
-}
-
-.table-responsive {
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.table {
-    background-color: #ffffff; /* Set the table's overall background color */
-}
-
-.table thead {
-    background-color: #343a40;
-    color: #fff;
-}
-
-.table thead th {
-    border: none;
-    padding: 15px;
-    font-size: 16px;
-}
-
-.table tbody tr {
-    transition: all 0.3s;
-    background-color: #f8f9fa; /* Set the default background color for rows */
-}
-
-.table tbody tr:nth-child(even) {
-    background-color: #e9ecef; /* Alternate background color for even rows */
-}
-
-.table tbody tr:hover {
-    background-color: #dee2e6; /* Background color when hovered */
-}
-
-.table tbody td {
-    padding: 15px;
-    vertical-align: middle;
-    color: #333;
-}
-
-/* Mobile responsive styling */
-@media (max-width: 767.98px) {
-    .table thead {
-        display: none;
-    }
-
-    .table, .table tbody, .table tr, .table td {
-        display: block;
-        width: 100%;
-    }
-
-    .table tr {
-        margin-bottom: 15px;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-        border-radius: 10px;
-        background: #fff;
-    }
-
-    .table td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-        background-color: #f8f9fa; /* Ensure background color on mobile */
-    }
-
-    .table td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 0;
-        width: 50%;
-        padding-left: 15px;
-        font-weight: bold;
-        text-align: left;
-        color: #555;
-    }
-}
-
-</style>
 </body>
 </html>

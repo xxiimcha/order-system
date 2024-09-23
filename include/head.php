@@ -13,8 +13,10 @@
     <!-- Google Web Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:300,400,500,600,700&family=Josefin+Sans&family=Nothing+You+Could+Do&family=Open+Sans:wght@400;600&family=Playball&display=swap" rel="stylesheet">
 
-    <!-- Font Awesome CDN Link -->
+    <!-- Font Awesome CDN Links -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
@@ -32,6 +34,10 @@
     <link rel="stylesheet" href="../css/flaticon.css">
     <link rel="stylesheet" href="../css/icomoon.css">
     <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Customized Bootstrap Stylesheets -->
+    <link href="../cssmlk/bootstrap.minmlk.css" rel="stylesheet">
+    <link href="../cssmlk/stylemlk.css" rel="stylesheet">
 
     <!-- Font Awesome Stylesheets (Backup if needed) -->
     <link href="../csses/font-awesome.mins.css" rel="stylesheet" />
@@ -58,15 +64,25 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.9.0/slick-theme.min.css" integrity="sha256-K48sh3W+w1pvFDnGkPLGmcfjAKXp9K75flxEmJp2TWA=" crossorigin="anonymous" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css" />
+    <link rel="stylesheet" type="../text/css" href="../css/bootstrap.css" />
     <link rel="stylesheet" href="../style.css">
 
     <!-- Responsive Style -->
     <link href="../csses/responsive.css" rel="stylesheet" />
 
     <!-- Custom styles for this template -->
-    <link href="csses/styles.css" rel="stylesheet" />
+    <link href="../csses/styles.css" rel="stylesheet" />
     
+    <link rel="stylesheet" href="../css/style.css">
+
+    <!-- Library Stylesheets from the Original Code -->
+    <link href="../libmlk/animate/animate.min.css" rel="stylesheet">
+    <link href="../libmlk/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+    <link href="../libmlk/lightbox/css/lightbox.min.css" rel="stylesheet">
+
+    <!-- Bootstrap CSS Version from the Original Code -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>

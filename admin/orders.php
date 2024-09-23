@@ -45,6 +45,20 @@ include('include/header.php');
 
                             if ($result->num_rows > 0) {
                                 while ($row = $result->fetch_assoc()) {
+                                    // Check if the status is 'Completed'
+                                    $statusHtml = "";
+                                    if ($row['order_status'] == 'Completed') {
+                                        $statusHtml = "<span class='badge bg-success'>Completed</span>";
+                                    } else {
+                                        $statusHtml = "<select class='form-control' onchange='updateOrderStatus({$row['order_id']}, this.value)'>
+                                                        <option value='Pending' " . ($row['order_status'] == 'Pending' ? 'selected' : '') . ">Pending</option>
+                                                        <option value='Processing' " . ($row['order_status'] == 'Processing' ? 'selected' : '') . ">Processing</option>
+                                                        <option value='Shipped' " . ($row['order_status'] == 'Shipped' ? 'selected' : '') . ">Shipped</option>
+                                                        <option value='Delivered' " . ($row['order_status'] == 'Delivered' ? 'selected' : '') . ">Delivered</option>
+                                                        <option value='Completed' " . ($row['order_status'] == 'Completed' ? 'selected' : '') . ">Completed</option>
+                                                       </select>";
+                                    }
+
                                     echo "<tr>
                                             <td>{$row['order_number']}</td>
                                             <td>{$row['order_date']}</td>
@@ -52,14 +66,7 @@ include('include/header.php');
                                             <td>{$row['customer_email']}</td>
                                             <td>{$row['item_name']} (x{$row['quantity']})</td>
                                             <td>₱{$row['total_amount']}</td>
-                                            <td>
-                                                <select class='form-control' onchange='updateOrderStatus({$row['order_id']}, this.value)'>
-                                                    <option value='Pending' " . ($row['order_status'] == 'Pending' ? 'selected' : '') . ">Pending</option>
-                                                    <option value='Processing' " . ($row['order_status'] == 'Processing' ? 'selected' : '') . ">Processing</option>
-                                                    <option value='Shipped' " . ($row['order_status'] == 'Shipped' ? 'selected' : '') . ">Shipped</option>
-                                                    <option value='Delivered' " . ($row['order_status'] == 'Delivered' ? 'selected' : '') . ">Delivered</option>
-                                                </select>
-                                            </td>
+                                            <td>{$statusHtml}</td>
                                             <td>
                                                 <button onclick='openChatModal(\"{$row['user_id']}\", \"{$row['customer_name']}\", \"{$row['order_number']}\")' class='btn btn-sm btn-primary'>Message</button>
                                             </td>
@@ -107,12 +114,13 @@ include('include/header.php');
                 </div>
                 <div class="input-group">
                     <input type="text" id="chatMessageInput" class="form-control" placeholder="Type your message here..." style="border-radius: 20px;">
-                    <button class="btn btn-primary" onclick="sendMessage()" style="border-radius: 50%;">Send</button>
+                    <button id="sendMessageButton" class="btn btn-primary" onclick="sendMessage()" style="border-radius: 50%;">Send</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <style>
 /* Chat message bubble styles */
 .chat-box {
@@ -206,6 +214,32 @@ function openChatModal(userId, customerName, orderNumber) {
     $('#chatMessages').empty();
     
     fetchChatMessages(); // Fetch existing chat messages for the user
+
+    // Fetch order status to check if it's completed
+    $.ajax({
+        url: 'controller/orders.php?action=getOrderStatus',
+        type: 'GET',
+        data: { order_id: orderNumber },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                if (response.status === 'Completed') {
+                    // Disable the input and send button
+                    $('#chatMessageInput').prop('disabled', true);
+                    $('#chatMessageInput').attr('placeholder', 'Order is completed. You cannot send messages.');
+                    $('#sendMessageButton').prop('disabled', true);
+                } else {
+                    // Enable the input and send button
+                    $('#chatMessageInput').prop('disabled', false);
+                    $('#chatMessageInput').attr('placeholder', 'Type your message here...');
+                    $('#sendMessageButton').prop('disabled', false);
+                }
+            }
+        },
+        error: function(error) {
+            console.error('Error fetching order status:', error);
+        }
+    });
 }
 
 // Function to fetch chat messages
@@ -242,6 +276,8 @@ function fetchChatMessages() {
 
 // Function to update order status
 function updateOrderStatus(orderId, status) {
+    console.log(`Updating order ID: ${orderId} to status: ${status}`); // Add console log here
+
     $.ajax({
         url: 'controller/orders.php?action=updateOrderStatus', // Ensure this URL points to your PHP controller
         type: 'POST',
@@ -253,11 +289,16 @@ function updateOrderStatus(orderId, status) {
         success: function(response) {
             if (response.success) {
                 toastr.success('Order status updated successfully.');
+                if (status === 'Completed') {
+                    // Change status display to badge
+                    $(`select[data-order-id='${orderId}']`).parent().html("<span class='badge bg-success'>Completed</span>");
+                }
             } else {
                 toastr.error('Error: ' + response.message);
             }
         },
         error: function(xhr, status, error) {
+            console.error('Error updating order status:', error); // Additional console log
             toastr.error('Error: ' + xhr.responseText);
         }
     });
@@ -292,7 +333,6 @@ function sendMessage() {
         });
     }
 }
-
 </script>
 
 <?php include('include/footer.php'); ?>

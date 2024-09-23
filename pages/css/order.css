@@ -1,0 +1,218 @@
+
+h2 {
+    color: #343a40;
+}
+
+.table-responsive {
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.table {
+    background-color: #ffffff; /* Set the table's overall background color */
+}
+
+.table thead {
+    background-color: #343a40;
+    color: #fff;
+}
+
+.table thead th {
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+}
+
+.table tbody tr {
+    transition: all 0.3s;
+    background-color: #f8f9fa; /* Set the default background color for rows */
+}
+
+.table tbody tr:nth-child(even) {
+    background-color: #e9ecef; /* Alternate background color for even rows */
+}
+
+.table tbody tr:hover {
+    background-color: #dee2e6; /* Background color when hovered */
+}
+
+.table tbody td {
+    padding: 15px;
+    vertical-align: middle;
+    color: #333;
+}
+/* Chat message container */
+.message-list {
+    max-height: 300px;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.message-bubble {
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    display: inline-block;
+    font-size: 14px;
+    position: relative;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.message-bubble.sent {
+    background-color: #e0f7fa;
+    color: #007b7f;
+    margin-left: auto;
+    border-top-right-radius: 0;
+    align-self: flex-end;
+}
+
+.message-bubble.received {
+    background-color: #e8eaf6;
+    color: #3949ab;
+    margin-right: auto;
+    border-top-left-radius: 0;
+    align-self: flex-start;
+}
+
+.message-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.message-bubble.sent::after {
+    border-width: 0 10px 10px 0;
+    border-color: transparent #e0f7fa transparent transparent;
+    right: 0;
+}
+
+.message-bubble.received::after {
+    border-width: 10px 10px 0 0;
+    border-color: #e8eaf6 transparent transparent transparent;
+    left: 0;
+}
+
+.message-timestamp {
+    font-size: 11px;
+    color: #777;
+    text-align: right;
+    margin-top: 5px;
+}
+/* Chat message bubble styles */
+.chat-box {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+}
+
+.chat-bubble {
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    max-width: 70%;
+    display: inline-block;
+    font-size: 14px;
+    position: relative;
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.chat-bubble.admin {
+    background-color: #e0f7fa;
+    align-self: flex-end;
+    color: #007b7f;
+    margin-left: auto;
+    border-top-right-radius: 0;
+}
+
+.chat-bubble.customer {
+    background-color: #e8eaf6;
+    align-self: flex-start;
+    color: #3949ab;
+    margin-right: auto;
+    border-top-left-radius: 0;
+}
+
+.chat-bubble::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    width: 0;
+    height: 0;
+    border-style: solid;
+}
+
+.chat-bubble.admin::after {
+    border-width: 0 10px 10px 0;
+    border-color: transparent #e0f7fa transparent transparent;
+    right: 0;
+}
+
+.chat-bubble.customer::after {
+    border-width: 10px 10px 0 0;
+    border-color: #e8eaf6 transparent transparent transparent;
+    left: 0;
+}
+
+.timestamp {
+    font-size: 11px;
+    color: #777;
+    text-align: right;
+    margin-top: 5px;
+}
+
+
+/* Mobile responsiveness */
+@media (max-width: 767.98px) {
+    .message-bubble {
+        max-width: 80%;
+    }
+}
+
+/* Mobile responsive styling */
+@media (max-width: 767.98px) {
+    .table thead {
+        display: none;
+    }
+
+    .table, .table tbody, .table tr, .table td {
+        display: block;
+        width: 100%;
+    }
+
+    .table tr {
+        margin-bottom: 15px;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        background: #fff;
+    }
+
+    .table td {
+        text-align: right;
+        padding-left: 50%;
+        position: relative;
+        background-color: #f8f9fa; /* Ensure background color on mobile */
+    }
+
+    .table td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: bold;
+        text-align: left;
+        color: #555;
+    }
+}

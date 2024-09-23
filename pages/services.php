@@ -8,13 +8,11 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
 <body>
   <?php include('../include/nav.php'); ?>
 
-  <!-- END nav -->
-
   <div class="carousel">
     <!-- list item -->
     <div class="list">
       <div class="item">
-        <img src="catering.jpg">
+        <img src="../assets/catering.jpg">
         <div class="content">
           <div class="author" style="font-size: 24px; color: #ff5900;">LA FARINA</div>
           <div class="topic" style="font-size: 50px;">CATERING SERVICE</div>
@@ -35,7 +33,7 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
         </div>
       </div>
       <div class="item">
-        <img src="catering2.jpg">
+        <img src="../assets/catering2.jpg">
         <div class="content">
           <div class="author" style="font-size: 24px; color: #ff5900;">LA FARINA</div>
           <div class="topic" style="font-size: 50px;">CATERING SERVICE</div>
@@ -55,7 +53,7 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
         </div>
       </div>
       <div class="item">
-        <img src="catering3.jpg">
+        <img src="../assets/catering3.jpg">
         <div class="content">
           <div class="author" style="font-size: 24px; color: #ff5900;">LA FARINA</div>
           <div class="topic" style="font-size: 50px;">CATERING SERVICE</div>

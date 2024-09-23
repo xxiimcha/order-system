@@ -9,6 +9,8 @@
     margin: 20px auto; /* Ensure the menu is centered horizontally */
     max-width: 80%; /* Restrict the max width */
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: relative; /* Ensure it doesn't overlap */
+    z-index: 1000;
 }
 
 /* Category button styling */
@@ -25,7 +27,8 @@
     gap: 8px;
     transition: all 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-    position: relative; /* Ensure submenu appears relative to the button */
+    position: relative; /* Ensures submenu appears relative to this button */
+    z-index: 999;
 }
 
 .category-button:hover {
@@ -39,7 +42,7 @@
 .submenu {
     display: none;
     position: absolute;
-    top: 50px; /* Ensure the submenu is below the main button */
+    top: 100%; /* Ensure the submenu appears directly below the category button */
     left: 0;
     background-color: #333;
     padding: 10px;
@@ -71,6 +74,17 @@
     display: flex;
 }
 
+/* Adjustments to ensure no overlap */
+.category-button:hover {
+    z-index: 1002; /* Ensure the hovered button is above other elements */
+}
+
+/* Prevent overlap between categories and submenus */
+.categories {
+    overflow: visible;
+}
+
+
 /* Container for food sections */
 .food-section {
     display: flex;
@@ -83,11 +97,13 @@
     border-radius: 10px;
     box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
     max-width: 1200px; /* Limit the width */
+    width: 100%; /* Ensure it uses full width of its container */
 }
 
 /* Individual food item container */
 .food-item {
-    width: 260px;
+    width: 100%;
+    max-width: 280px; /* Ensure a max width */
     background-color: #fff;
     border-radius: 10px;
     overflow: hidden;
@@ -152,12 +168,11 @@
     gap: 5px;
     justify-content: center;
     margin-top: 10px;
+    flex-wrap: wrap; /* Allow buttons to wrap on smaller screens */
 }
 
 /* Styling for buttons */
-.order-button,
-.cart-button,
-.customize-button {
+.order-button, .cart-button, .customize-button {
     padding: 8px 10px;
     color: #fff;
     text-decoration: none;
@@ -165,7 +180,7 @@
     font-size: 14px;
     cursor: pointer;
     border: none;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s;
 }
 
 .order-button {
@@ -174,6 +189,7 @@
 
 .order-button:hover {
     background-color: #cc5200;
+    transform: scale(1.05);
 }
 
 .cart-button {
@@ -182,6 +198,7 @@
 
 .cart-button:hover {
     background-color: #218838;
+    transform: scale(1.05);
 }
 
 .customize-button {
@@ -190,6 +207,7 @@
 
 .customize-button:hover {
     background-color: #0056b3;
+    transform: scale(1.05);
 }
 
 /* Size buttons */
@@ -264,71 +282,133 @@
     background-color: #c9302c;
 }
 
-/* Modal styles */
+/* Style for the modal background */
 .modal {
-    display: none; /* Hidden by default */
-    position: fixed;
-    z-index: 2000; /* Stay on top */
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
     left: 0;
     top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto; /* Enable scroll if needed */
-    background-color: rgba(0, 0, 0, 0.6); /* Black with opacity */
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    animation: fadeIn 0.5s; /* Fade-in animation */
 }
 
+/* Animation for the modal */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+/* Modal content */
 .modal-content {
-    background-color: #fefefe;
-    margin: 15% auto; /* 15% from the top and centered */
-    padding: 20px;
-    border: 1px solid #888;
-    width: 50%; /* Could be more or less, depending on screen size */
+    background-color: #fff;
+    margin: 10% auto; 
+    padding: 20px; 
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 80%; /* Make it more responsive */
+    max-width: 600px; /* Maximum width */
+    animation: slideIn 0.4s; /* Slide-in animation */
+    position: relative;
+    font-family: Arial, sans-serif;
 }
 
+/* Close button */
 .close {
     color: #aaa;
-    float: right;
-    font-size: 28px;
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    font-size: 24px;
     font-weight: bold;
     cursor: pointer;
+    transition: color 0.3s;
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.close:hover {
+    color: #333;
 }
 
+/* Styling the modal header */
+.modal-content h2 {
+    margin: 0 0 20px;
+    font-size: 24px;
+    color: #333;
+    border-bottom: 2px solid #f1f1f1;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+/* Styling modal items */
 .modal-item {
-    margin: 15px 0;
+    margin-bottom: 15px;
 }
 
+.modal-item label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.modal-item input, 
+.modal-item textarea, 
+.modal-item select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    transition: border-color 0.3s;
+}
+
+.modal-item input:focus, 
+.modal-item textarea:focus, 
+.modal-item select:focus {
+    border-color: #009688; /* Color change on focus */
+    outline: none;
+}
+
+/* Button styles */
 #confirm-order {
-    padding: 10px 15px;
-    background-color: #ff6600;
+    background-color: #009688;
     color: #fff;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    font-size: 16px;
     transition: background-color 0.3s;
+    width: 100%;
 }
 
 #confirm-order:hover {
-    background-color: #cc5200;
+    background-color: #00796b;
 }
 
-/* Adjustments for modal layout */
-#delivery-address {
-    width: 100%;
+/* Styling the total amount */
+#total-amount {
+    font-weight: bold;
+    color: #009688;
+    text-align: center;
+    background: #f9f9f9;
+    border: none;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    resize: none;
+    cursor: not-allowed; /* Make it clear that this is non-editable */
 }
 
-#delivery-address-section {
-    margin-top: 10px;
+/* Add subtle animation when hovering over inputs */
+.modal-item input:hover, 
+.modal-item select:hover, 
+.modal-item textarea:hover {
+    border-color: #bbb;
 }
