@@ -1,0 +1,114 @@
+/* Container Styling */
+.container {
+    background-color: #ffffff; /* White background for the form */
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow effect */
+    border-radius: 8px; /* Rounded corners */
+    max-width: 600px; /* Limit the width */
+    margin-top: 50px; /* Space from the top */
+}
+
+/* Heading Styling */
+.container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333; /* Darker text color */
+}
+
+/* Form Styling */
+#settings-form .form-group label {
+    font-weight: bold;
+    color: #555; /* Slightly lighter than the text color */
+}
+
+#settings-form .form-control {
+    border-radius: 5px;
+    padding: 10px;
+    border: 1px solid #ccc; /* Light border */
+}
+
+#settings-form .form-control:focus {
+    border-color: #007bff; /* Focused border color */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.25); /* Subtle glow */
+}
+
+#settings-form button[type="submit"],
+#settings-form .btn-secondary {
+    width: 100%; /* Full width */
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#settings-form button[type="submit"] {
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+#settings-form button[type="submit"]:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+#settings-form .btn-secondary {
+    margin-top: 10px;
+    background-color: #6c757d;
+    border: none;
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+#settings-form .btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+}
+
+/* Modals Styling */
+.modal-content {
+    border-radius: 8px;
+}
+
+.modal-header {
+    border-bottom: none; /* Remove default header border */
+}
+
+.modal-title {
+    color: #333; /* Slightly darker title */
+}
+
+.modal-body {
+    text-align: center;
+}
+
+.modal-body i {
+    font-size: 48px; /* Larger icon size */
+}
+
+.modal-footer {
+    border-top: none; /* Remove default footer border */
+}
+
+.modal-footer .btn-primary {
+    background-color: #007bff;
+    border: none;
+}
+
+.modal-footer .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+/* Body Styling */
+body {
+    background-color: #f8f9fa; /* Light gray background */
+    font-family: Arial, sans-serif;
+}
+
+/* Validation feedback */
+.invalid-feedback {
+    display: none; /* Hide by default */
+    color: #dc3545;
+}
+
+.form-control.is-invalid + .invalid-feedback {
+    display: block; /* Show when input is invalid */
+}
