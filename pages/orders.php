@@ -35,29 +35,24 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="messageModalLabel" style="color: black;">Messages for Order: <span id="modal-order-number"></span></h5>
+                <h5 class="modal-title" id="messageModalLabel" style="color: black;">
+                    Chat with <span id="modal-username"></span> (Order: <span id="modal-order-number"></span>)
+                </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <!-- Messages List Container -->
-                <div id="message-list" class="message-list mb-3" style="max-height: 300px; overflow-y: auto;">
+                <div id="message-list" class="message-list" style="max-height: 300px; overflow-y: auto;">
                     <!-- Messages will be dynamically inserted here -->
                 </div>
                 
                 <!-- Message Input Form -->
-                <form id="message-form" enctype="multipart/form-data">
+                <form id="message-form" enctype="multipart/form-data" style="margin-top: 15px;">
                     <div class="form-group">
                         <label for="message">New Message</label>
                         <textarea class="form-control" id="message" rows="3" placeholder="Type your message here..."></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="image">Attach Image</label>
-                        <div class="custom-file">
-                            <input type="file" class="custom-file-input" id="image" accept="image/*">
-                            <label class="custom-file-label" for="image">Choose file</label>
-                        </div>
                     </div>
                     <button type="submit" class="btn btn-primary">Send</button>
                 </form>
@@ -65,7 +60,6 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
         </div>
     </div>
 </div>
-
 
 <?php include('../include/foot.php'); ?>
 
@@ -123,68 +117,77 @@ $is_logged_in = isset($_SESSION['id']); // Assuming user_id is stored in session
         fetchMessages(orderNumber);
     }
 
-    // Fetch messages for a specific order
+    // Fetch and render messages for a specific order number
     function fetchMessages(orderNumber) {
         $.ajax({
             url: '../controller/messages.php?action=fetchMessages',
-            method: 'GET',
+            type: 'GET',
             data: { order_number: orderNumber },
-            success: function(response) {
-                const result = JSON.parse(response);
-                if (result.status === 'success') {
-                    renderMessages(result.messages);
+            success: function (response) {
+                const data = JSON.parse(response);
+                if (data.status === 'success') {
+                    renderMessages(data.messages);
                 } else {
-                    console.error(result.message);
+                    console.error('Error fetching messages:', data.message);
                 }
             },
-            error: function(error) {
-                console.error('Error fetching messages:', error);
+            error: function () {
+                console.error('Failed to load messages.');
             }
         });
     }
 
-    // Function to render messages
+    // Render messages in the modal
     function renderMessages(messages) {
         const messageList = $('#message-list');
-        messageList.empty();
+        messageList.empty(); // Clear any existing messages
 
-        if (Array.isArray(messages)) {
-            messages.forEach(message => {
-                const bubbleClass = message.sender === 'User' ? 'customer' : 'admin'; // Check if sender is 'User' or 'Admin'
-                const messageItem = `
-                    <div class="chat-bubble ${bubbleClass}">
-                        <p>${message.text}</p>
-                        <div class="timestamp">${message.timestamp}</div>
-                    </div>
-                `;
-                messageList.append(messageItem);
-            });
-            // Scroll to the bottom of the chat
-            messageList.scrollTop(messageList.prop("scrollHeight"));
-        }
+        messages.forEach(message => {
+            const senderClass = message.sender === 'User' ? 'chat-bubble customer' : 'chat-bubble admin';
+            const messageBubble = `
+                <div class="${senderClass}">
+                    <p>${message.text}</p>
+                    <div class="timestamp">${message.timestamp}</div>
+                </div>
+            `;
+            messageList.append(messageBubble);
+        });
+
+        // Scroll to the bottom of the chat box to show the latest message
+        messageList.scrollTop(messageList[0].scrollHeight);
     }
 
-
-    // Handling form submission
+    // Handle form submission for sending a new message
     $('#message-form').on('submit', function (e) {
         e.preventDefault();
-        const message = $('#message').val();
-        const image = $('#image')[0].files[0];
-        const orderNumber = $('#modal-order-number').text();
-        const formData = new FormData();
-        formData.append('order_number', orderNumber);
-        formData.append('message', message);
-        if (image) {
-            formData.append('image', image);
-        }
+        const messageText = $('#message').val().trim();
 
-        if (message.trim()) {
-            sendMessage(formData);
-            $('#message').val('');
-            $('#image').val('');
+        if (messageText) {
+            const formData = new FormData();
+            formData.append('order_number', $('#modal-order-number').text());
+            formData.append('message', messageText);
+
+            $.ajax({
+                url: '../controller/messages.php?action=sendMessage',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (response) {
+                    const data = JSON.parse(response);
+                    if (data.status === 'success') {
+                        fetchMessages($('#modal-order-number').text()); // Refresh the messages
+                        $('#message').val(''); // Clear the input field
+                    } else {
+                        alert('Error sending message: ' + data.message);
+                    }
+                },
+                error: function () {
+                    console.error('Failed to send message.');
+                }
+            });
         }
     });
-
 
     // Display selected file name
     $('.custom-file-input').on('change', function() {

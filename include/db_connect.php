@@ -1,5 +1,7 @@
 <?php
-session_start(); // Start the session
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 $servername = "localhost";
 $username = "root";  // replace with your MySQL username
