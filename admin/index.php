@@ -7,6 +7,16 @@
                 <li class="breadcrumb-item active">Dashboard</li>
             </ol>
             
+            <!-- Interval Selection Dropdown for Sales Chart -->
+            <div class="mb-4">
+                <label for="intervalSelect" class="form-label">Select Interval:</label>
+                <select id="intervalSelect" class="form-control" onchange="loadSalesData()">
+                    <option value="daily">Daily</option>
+                    <option value="weekly">Weekly</option>
+                    <option value="monthly" selected>Monthly</option>
+                </select>
+            </div>
+            
             <!-- Sales Chart -->
             <div class="card mb-4">
                 <div class="card-header">
@@ -32,7 +42,7 @@
                                 <th>Customer Name</th>
                                 <th>Order Date</th>
                                 <th>Status</th>
-                                <th>Amount</th>
+                                <th>Amount (₱)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -55,7 +65,7 @@
                                             <td>{$row['customer_name']}</td>
                                             <td>{$row['order_date']}</td>
                                             <td>{$row['order_status']}</td>
-                                            <td>{$row['total_amount']}</td>
+                                            <td>₱" . number_format($row['total_amount'], 2) . "</td>
                                           </tr>";
                                 }
                             } else {
@@ -84,42 +94,81 @@
 <?php include('include/footer.php');?>
 
 <script>
-// Ensure the element exists before trying to use it
-document.addEventListener('DOMContentLoaded', (event) => {
-    const salesChartCanvas = document.getElementById('salesChart');
-    
-    if (salesChartCanvas) {
-        const salesChartCtx = salesChartCanvas.getContext('2d');
-        const salesChart = new Chart(salesChartCtx, {
-            type: 'line',
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-                datasets: [{
-                    label: 'Sales in USD',
-                    data: [500, 1000, 750, 1250, 950, 1500],
-                    borderColor: 'rgba(75, 192, 192, 1)',
-                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
-                    borderWidth: 2
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: true,
-                        position: 'top',
-                    },
-                },
-                scales: {
-                    x: {
-                        beginAtZero: true
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
+    // Function to load sales data based on interval using $.ajax
+    function loadSalesData() {
+        const interval = $('#intervalSelect').val(); // Get the selected interval
+
+        $.ajax({
+            url: 'controller/sales_data.php', // The URL to your PHP script
+            type: 'GET',
+            data: { interval: interval }, // Pass the interval as a parameter
+            dataType: 'json',
+            success: function(response) {
+                console.log('Sales data response:', response); // Debug: Log response
+
+                // Check if data is valid
+                if (!response || !response.labels || !response.sales || response.labels.length === 0 || response.sales.length === 0) {
+                    console.error('No data available or invalid data structure.');
+                    alert('No data available for the selected interval.');
+                    return;
                 }
+
+                if (window.salesChart) {
+                    window.salesChart.destroy(); // Destroy the existing chart if it exists
+                }
+
+                const ctx = document.getElementById('salesChart').getContext('2d');
+                window.salesChart = new Chart(ctx, {
+                    type: 'line',
+                    data: {
+                        labels: response.labels,
+                        datasets: [{
+                            label: 'Total Sales (₱)',
+                            data: response.sales,
+                            borderColor: 'rgba(75, 192, 192, 1)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            borderWidth: 2
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: {
+                            legend: {
+                                display: true,
+                                position: 'top',
+                            },
+                            datalabels: {
+                                color: 'black', // Color of the data labels
+                                display: true, // Show data labels
+                                align: 'top',
+                                formatter: (value) => '₱' + value.toLocaleString(), // Format values as currency
+                            }
+                        },
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true,
+                                ticks: {
+                                    callback: function(value) {
+                                        return '₱' + value.toLocaleString(); // Format currency
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    plugins: [ChartDataLabels] // Activate the data labels plugin
+                });
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching sales data:', error); // Log the error
             }
         });
     }
-});
+
+    // Load initial sales data for the default 'monthly' interval
+    $(document).ready(function() {
+        loadSalesData();
+    });
 </script>

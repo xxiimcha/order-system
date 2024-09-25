@@ -62,9 +62,9 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-box"></i></div>
                                 Products
                             </a>
-                            <a class="nav-link" href="messages.html">
+                            <a class="nav-link" href="bookings.php">
                                 <div class="sb-nav-link-icon"><i class="fas fa-envelope"></i></div>
-                                Messages
+                                Bookings
                             </a>
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseUsers" aria-expanded="false" aria-controls="collapseUsers">
                                 <div class="sb-nav-link-icon"><i class="fas fa-users"></i></div>
