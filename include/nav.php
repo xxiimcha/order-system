@@ -20,7 +20,7 @@ if ($is_logged_in) {
 
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
   <div class="container">
-    <a class="navbar-brand" href="index.php">
+    <a class="navbar-brand" href="../index.php">
       <span class="flaticon-pizza-1 mr-1"></span>La Farina<br>
       <small>EST. 2022</small>
     </a>
