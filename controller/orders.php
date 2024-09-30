@@ -11,11 +11,14 @@ if (isset($_GET['action'])) {
         case 'getUserOrders':
             getOrders($conn);
             break;
-        case 'addtocart': // New action for adding to the cart
+        case 'addtocart':
             addToCart($conn);
             break;
+        case 'placeCustomizedOrder': // New action for customized orders
+            placeCustomizedOrder($conn);
+            break;
         default:
-            echo "Invalid action.";
+            echo json_encode(['success' => false, 'message' => 'Invalid action.']);
             break;
     }
 
@@ -151,4 +154,42 @@ function getOrders($conn) {
         echo json_encode(['success' => false, 'error' => 'Error fetching orders: ' . $conn->error]);
     }
 }
+// Function to handle placing a customized pizza order
+function placeCustomizedOrder($conn) {
+    // Retrieve POST data sent from the AJAX request
+    $pizzaName = $_POST['pizzaName'];
+    $pizzaSize = $_POST['pizzaSize'];
+    $flavors = $_POST['flavors'];
+    $paymentMode = $_POST['paymentMode'];
+    $deliveryAddress = isset($_POST['deliveryAddress']) ? $_POST['deliveryAddress'] : null;
+    $userId = $_POST['userId'];
+    $totalAmount = $_POST['totalAmount'];
+
+    // Generate a randomized order number with the prefix "LF" followed by 4 random numbers
+    $orderNumber = 'LF' . str_pad(mt_rand(0, 9999), 4, '0', STR_PAD_LEFT);
+
+    // Validate the input data
+    if (empty($pizzaName) || empty($pizzaSize) || empty($flavors) || empty($userId) || empty($totalAmount)) {
+        echo json_encode(['success' => false, 'message' => 'Invalid data. Please fill all the required fields.']);
+        exit;
+    }
+
+    // Escape strings to prevent SQL injection
+    $pizzaName = $conn->real_escape_string($pizzaName);
+    $flavors = $conn->real_escape_string($flavors);
+    $deliveryAddress = $conn->real_escape_string($deliveryAddress);
+
+    // Prepare the SQL query to insert the order data into customized_orders table
+    $sql = "INSERT INTO customized_orders (order_number, user_id, pizza_name, pizza_size, flavors, total_amount, delivery_address, payment_mode, order_date) 
+            VALUES ('$orderNumber', '$userId', '$pizzaName', '$pizzaSize', '$flavors', '$totalAmount', " . 
+            ($deliveryAddress ? "'$deliveryAddress'" : "NULL") . ", '$paymentMode', NOW())";
+
+    // Execute the query
+    if ($conn->query($sql) === TRUE) {
+        echo json_encode(['success' => true, 'message' => 'Customized order placed successfully!', 'order_number' => $orderNumber]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Error placing order: ' . $conn->error]);
+    }
+}
+
 ?>

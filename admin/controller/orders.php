@@ -11,6 +11,9 @@ if (isset($_GET['action'])) {
         case 'getOrderStatus':
             getOrderStatus($conn);
             break;
+        case 'getOrderDetails': // New case for getting order details
+            getOrderDetails($conn);
+            break;
         default:
             echo json_encode(['success' => false, 'message' => 'Invalid action.']);
             break;
@@ -69,4 +72,32 @@ function getOrderStatus($conn) {
         echo json_encode(['success' => false, 'message' => 'Order not found or unable to retrieve status.']);
     }
 }
+
+// Function to get the order details directly from the orders table
+function getOrderDetails($conn) {
+    if (!isset($_GET['order_id'])) {
+        echo json_encode(['success' => false, 'message' => 'Order ID is required.']);
+        return;
+    }
+
+    $orderId = $conn->real_escape_string($_GET['order_id']);
+
+    // Prepare the SQL query to fetch order details from the orders table
+    $sql = "SELECT order_id, order_number, user_id, item_name, quantity, total_amount, order_type, payment_mode, delivery_address, order_status, order_date 
+            FROM orders 
+            WHERE order_id = '$orderId'";
+
+    // Execute the query
+    $result = $conn->query($sql);
+
+    if ($result && $result->num_rows > 0) {
+        $order = $result->fetch_assoc();
+        
+        // Return the order details in JSON format
+        echo json_encode(['success' => true, 'order' => $order]);
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Order not found or unable to retrieve details.']);
+    }
+}
+
 ?>

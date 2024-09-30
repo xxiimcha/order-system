@@ -27,15 +27,15 @@
 <!-- Additional JavaScript Libraries -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-<script src="liba/wow/wow.min.js"></script>
-<script src="liba/easing/easing.min.js"></script>
-<script src="liba/waypoints/waypoints.min.js"></script>
-<script src="liba/counterup/counterup.min.js"></script>
-<script src="liba/lightbox/sj/lightbox.min.js"></script>
-<script src="liba/owlcarousel/owl.carousel.min.js"></script>
+<script src="../liba/wow/wow.min.js"></script>
+<script src="../liba/easing/easing.min.js"></script>
+<script src="../liba/waypoints/waypoints.min.js"></script>
+<script src="../liba/counterup/counterup.min.js"></script>
+<script src="../liba/lightbox/sj/lightbox.min.js"></script>
+<script src="../liba/owlcarousel/owl.carousel.min.js"></script>
 
 <!-- Template JavaScript -->
-<script src="sj/main.js"></script>
+<script src="../sj/main.js"></script>
 
 <!-- jQuery Duplicate Scripts -->
 

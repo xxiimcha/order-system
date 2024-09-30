@@ -1,0 +1,503 @@
+.custom-container {
+    max-width: 900px; /* Increased max-width */
+    margin: 0 auto; /* Center container */
+    background-color: #fff3e0; /* Soft background color */
+    border-radius: 15px; /* More rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+    padding: 30px; /* Added padding */
+    border: 3px solid #ffa200; /* Changed border color */
+    margin-bottom: 30px; /* Margin at the bottom */
+}
+label {
+    display: inline-block;
+    margin-bottom: 10px;
+    font-weight: bold;
+}
+/* Custom Scrollbar Styling for order-details modal */
+.order-details::-webkit-scrollbar {
+    width: 12px; /* Width of the scrollbar */
+    height: 12px; /* Height for horizontal scrollbar */
+}
+
+.order-details::-webkit-scrollbar-track {
+    background: #f3f3f3; /* Light gray background */
+    border-radius: 10px; /* Rounded corners */
+}
+
+.order-details::-webkit-scrollbar-thumb {
+    background: #ffa200; /* Matching accent color */
+    border-radius: 10px; /* Rounded corners */
+    border: 3px solid #f3f3f3; /* Space between thumb and track */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.order-details::-webkit-scrollbar-thumb:hover {
+    background: #ff8c00; /* Darker color on hover */
+}
+
+/* Firefox Custom Scrollbar for order-details */
+.order-details {
+    scrollbar-width: thin; /* Makes the scrollbar thinner */
+    scrollbar-color: #ffa200 #f3f3f3; /* Scrollbar thumb and track color */
+}
+
+#flavor-count {
+    padding: 10px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-left: 10px;
+}
+
+.styled-input, .styled-select {
+    width: 100%;
+    padding: 8px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin-top: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.styled-input:focus, .styled-select:focus {
+    border-color: #ffa200;
+    outline: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 24px;
+        margin-bottom: 15px;
+    }
+
+    label {
+        font-size: 14px;
+    }
+
+    #flavor-count {
+        padding: 8px;
+        font-size: 14px;
+    }
+}
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .pizza-customization {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+        }
+
+        .pizza {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin-right: 20px;
+            border: 2px solid #ddd;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        .pizza-base {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .pizza-section {
+            position: absolute;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .pizza-section:hover {
+            background: rgba(255, 255, 255, 0.8);
+        }
+
+        .pizza-section img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+        }
+
+        /* Pizza size 18 and 24 styles */
+        .pizza.size-18 .top-half,
+        .pizza.size-24 .top-half,
+        .pizza.size-18 .bottom-half,
+        .pizza.size-24 .bottom-half {
+            width: 100%;
+            height: 50%;
+        }
+
+        .pizza.size-18 .top-half {
+            top: 0;
+        }
+
+        .pizza.size-18 .bottom-half {
+            bottom: 0;
+        }
+
+        .pizza.size-24 .top-half {
+            top: 0;
+        }
+
+        .pizza.size-24 .bottom-half {
+            bottom: 0;
+        }
+
+        /* Pizza size 30 styles */
+        .pizza.size-30 .top-left,
+        .pizza.size-30 .top-right,
+        .pizza.size-30 .bottom-left,
+        .pizza.size-30 .bottom-right {
+            width: 50%;
+            height: 50%;
+        }
+
+        .pizza.size-30 .top-left {
+            top: 0;
+            left: 0;
+        }
+
+        .pizza.size-30 .top-right {
+            top: 0;
+            right: 0;
+        }
+
+        .pizza.size-30 .bottom-left {
+            bottom: 0;
+            left: 0;
+        }
+
+        .pizza.size-30 .bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+
+        /* Pizza size 36 styles */
+        .pizza.size-36 .top-left,
+        .pizza.size-36 .top-middle,
+        .pizza.size-36 .top-right,
+        .pizza.size-36 .bottom-left,
+        .pizza.size-36 .bottom-middle,
+        .pizza.size-36 .bottom-right {
+            width: 33.33%;
+            height: 50%;
+        }
+
+        .pizza.size-36 .top-left {
+            top: 0;
+            left: 0;
+        }
+
+        .pizza.size-36 .top-middle {
+            top: 0;
+            left: 33.33%;
+        }
+
+        .pizza.size-36 .top-right {
+            top: 0;
+            right: 0;
+        }
+
+        .pizza.size-36 .bottom-left {
+            bottom: 0;
+            left: 0;
+        }
+
+        .pizza.size-36 .bottom-middle {
+            bottom: 0;
+            left: 33.33%;
+        }
+
+        .pizza.size-36 .bottom-right {
+            bottom: 0;
+            right: 0;
+        }
+
+        .flavor-selection {
+            width: 90%;
+            max-width: 200px;
+            max-height: 250px;
+            overflow-y: auto;
+            border: 2px solid #ddd;
+            background: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+
+        #flavor-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        #flavor-list li {
+            padding: 10px;
+            background: #f9f9f9;
+            margin-bottom: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            border-radius: 5px;
+        }
+
+        #flavor-list li:hover {
+            background: #e0e0e0;
+        }
+
+        .order-section {
+            margin-top: 20px;
+        }
+        
+        .order-details {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #fffaf0; /* Light beige background for a warmer feel */
+            padding: 25px; /* Increased padding for better spacing */
+            border: 2px solid #ffa200; /* Use the same accent color */
+            border-radius: 15px; /* More rounded corners */
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3); /* Deeper shadow for a floating effect */
+            max-height: 600px; /* Allow more space */
+            max-width: 80%; /* Ensure responsiveness */
+            overflow-y: auto;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out; /* Smooth transition */
+        }
+        
+        .order-details h2 {
+            margin-top: 0;
+            color: #ff8c00; /* Orange color for the title */
+            text-align: center; /* Center-align the title */
+            font-size: 24px;
+            border-bottom: 2px solid #ffa200;
+            padding-bottom: 10px;
+        }
+        
+        .order-details p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 16px;
+            color: #333;
+        }
+        
+        .order-details img {
+            width: 70px; /* Reduced size for better layout */
+            height: 70px;
+            object-fit: cover;
+            border-radius: 8px; /* Slightly rounded corners */
+            margin-right: 15px;
+            border: 2px solid #ffa200; /* Accent border for images */
+        }
+        
+        .order-btns {
+            display: flex;
+            justify-content: space-between; /* Space out the buttons */
+            margin-top: 20px;
+            gap: 15px; /* Add some spacing between buttons */
+        }
+        
+        .btn {
+            background: #ff8c00; /* Matching accent color */
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-weight: bold;
+        }
+        
+        .btn:hover {
+            background-color: #ff6600; /* Slightly darker on hover */
+        }
+        
+        .add-to-cart-btn {
+            background: #4CAF50; /* Green for the action button */
+        }
+        
+        .add-to-cart-btn:hover {
+            background: #388e3c; /* Darker green on hover */
+        }
+        
+        .close-btn {
+            background: #f44336; /* Red for the close button */
+        }
+        
+        .close-btn:hover {
+            background: #d32f2f; /* Darker red on hover */
+        }
+        
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .order-details {
+                padding: 15px;
+                width: 90%;
+                max-height: 80%; /* Make sure it's not too tall on smaller screens */
+            }
+        
+            .order-details h2 {
+                font-size: 20px;
+            }
+        
+            .btn {
+                padding: 8px 16px;
+                font-size: 14px;
+            }
+        
+            .order-details img {
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+/* Pizza Name input */
+#pizza-name {
+    padding: 12px;
+    width: 70%;
+    max-width: 300px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#pizza-name:focus {
+    outline: none;
+    border-color: #4CAF50; /* Green border when focused */
+}
+
+/* Pizza Info display */
+#pizza-info {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+#pizza-info p {
+    margin: 10px 0;
+    font-weight: bold;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .container {
+        padding: 10px;
+    }
+
+    #pizza-name {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    #pizza-info {
+        padding: 15px;
+        font-weight: bold;
+    }
+}
+
+/* Flavor selection list */
+#flavor-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    max-height: 250px;
+    overflow-y: auto;
+}
+
+#flavor-list li {
+    padding: 12px;
+    background: #fff;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+#flavor-list li:hover {
+    background: #f9f9f9;
+}
+
+@media (max-width: 600px) {
+    #flavor-list {
+        max-height: none;
+        overflow-y: visible;
+    }
+
+    #flavor-list li {
+        padding: 10px;
+        font-size: 14px;
+    }
+}
+
+.error-message {
+    display: none;
+    background-color: #ffcccc;
+    color: #ff0000;
+    border: 1px solid #ff0000;
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+}
+
+#pizza-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+}
+
+#box-message {
+    color: white;
+    margin-bottom: 20px;
+    font-size: 24px;
+    text-align: center; /* Center the message */
+}
+
+#lafbox {
+    width: 300px;
+    height: auto;
+}
+
+@media (max-width: 600px) {
+    #lafbox {
+        width: 200px;
+    }
+}
